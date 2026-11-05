@@ -1,40 +1,48 @@
 <script lang="ts">
+	import { TipoDeObstaculos } from "#lib/types/obstacle-category-type.ts";
+	import { AlertStatus } from "#lib/types/alerta-status.type.ts";
+
 	type Alert = {
 		title: string
 		description: string
-		category: string
+		category: TipoDeObstaculos
 		neighborhood: string
 		street: string
+		status: AlertStatus
 	}
 
 	const alerts: Alert[] = [
 		{
 			title: 'Buraco na pista',
 			description: 'Buraco grande perto da faixa de pedestres, dificultando a passagem.',
-			category: 'Buraco',
+			category: TipoDeObstaculos.HOLE,
 			neighborhood: 'Centro',
-			street: "Rua São João de Miriti"
+			street: "Rua São João de Miriti",
+			status: AlertStatus.STANDBY
 		},
 		{
 			title: 'Poste com lâmpada apagada',
 			description: 'A rua está sem iluminação durante a noite.',
-			category: 'Iluminação',
+			category: TipoDeObstaculos.LIGHTINING,
 			neighborhood: 'Itapecirica da Serra',
-			street: "Rua 3"
+			street: "Rua 3",
+			status: AlertStatus.STANDBY
 		},
 		{
 			title: 'Descarte irregular de lixo',
 			description: 'Há sacos de lixo acumulados na calçada.',
-			category: 'Lixo',
+			category: TipoDeObstaculos.GARBAGE,
 			neighborhood: 'Av. Getúlio Vargas',
-			street: "Rua 4"
+			street: "Rua 4",
+			status: AlertStatus.STANDBY
 		},
 		{
 			title: 'Calçada danificada',
 			description: 'Trecho quebrado pode dificultar a passagem de pedestres.',
-			category: 'Calçada',
+			category: TipoDeObstaculos.SIDEWALK,
 			neighborhood: 'Flores Cavalcante',
-			street: "Rua 5"
+			street: "Rua 5",
+			status: AlertStatus.STANDBY
 		}
 	]
 
