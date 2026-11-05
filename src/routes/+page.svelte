@@ -1,4 +1,6 @@
 <script lang="ts">
+import Hero from './Hero.svelte'
+
 </script>
 
 <svelte:head>
@@ -7,5 +9,5 @@
 </svelte:head>
 
 <div>
-	Feed page
+	<Hero/>
 </div>
