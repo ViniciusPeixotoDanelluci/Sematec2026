@@ -1,7 +1,11 @@
 <script lang="ts">
 </script>
 
-<div></div>
+<svelte:head>
+	<title>Painel de Alertas</title>
+	<meta name="description" content="Acompanhe os problemas reportados pela comunidade." />
+</svelte:head>
 
-<style>
-</style>
+<div>
+	Feed page
+</div>

@@ -31,7 +31,9 @@
 		"#lib/*": "./src/lib/*"
 	},
 	"dependencies": {
+		"@lucide/svelte": "^1.68.0",
 		"better-sqlite3": "^13.0.3",
+		"ol": "^10.11.0",
 		"svelte-openlayers": "^2.1.0"
 	}
 }

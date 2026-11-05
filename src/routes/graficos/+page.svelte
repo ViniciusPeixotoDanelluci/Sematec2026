@@ -3,7 +3,7 @@
 
 <div>
 	<!-- O nome dessa rota esta aberto a debate -->
-	Problemas Relatados pela comunidade
+	Pagina principal
 </div>
 
 <style>
