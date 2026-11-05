@@ -1,4 +1,5 @@
 <script lang="ts">
+	import AlertPagination from './AlertPagination.svelte'
 </script>
 
 <svelte:head>
@@ -8,4 +9,5 @@
 
 <div>
 	Feed page
+	<AlertPagination />
 </div>
