@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Map, Layer, View } from 'svelte-openlayers';
-	import 'svelte-openlayers/styles.css';
+	import { Map, Layer, View } from 'svelte-openlayers'
+	import 'svelte-openlayers/styles.css'
 </script>
 
 <main>

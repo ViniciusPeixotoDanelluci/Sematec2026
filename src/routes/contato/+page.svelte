@@ -134,31 +134,36 @@
 	}
 </script>
 
-<form onsubmit={enviarEndereco}>
-	<h1>Entre em contato com um órgão público</h1>
+<div>
+	<form onsubmit={enviarEndereco}>
+		<h1>Entre em contato com um órgão público</h1>
 
-	<div>
-		<label for="cepInput">CEP</label>
-		<input type="text" id="cepInput" bind:value={cep} placeholder="00000-000" />
-	</div>
+		<div>
+			<label for="cepInput">CEP</label>
+			<input type="text" id="cepInput" bind:value={cep} placeholder="00000-000" />
+		</div>
 
-	<button type="submit" disabled={carregando}>
-		{carregando ? 'Buscando...' : 'Enviar'}
-	</button>
-</form>
+		<button type="submit" disabled={carregando}>
+			{carregando ? 'Buscando...' : 'Enviar'}
+		</button>
+	</form>
 
-{#if erro}
-	<p class="erro">{erro}</p>
-{/if}
+	{#if erro}
+		<p class="erro">{erro}</p>
+	{/if}
 
-{#if orgao}
-	<section>
-		<h2>{orgao.nome}</h2>
-		<p>E-mail: <a href={`mailto:${orgao.email}`}>{orgao.email}</a></p>
-		<p>Site: <a href={orgao.site} target="_blank" rel="noopener noreferrer">{orgao.site}</a></p>
-		<p>Telefone: {orgao.tel}</p>
-	</section>
-{/if}
+	{#if orgao}
+		<section>
+			<h2>{orgao.nome}</h2>
+			<p>E-mail: <a href={`mailto:${orgao.email}`}>{orgao.email}</a></p>
+			<p>
+				Site: <a href={orgao.site} target="_blank" rel="noopener noreferrer">{orgao.site}</a
+				>
+			</p>
+			<p>Telefone: {orgao.tel}</p>
+		</section>
+	{/if}
+</div>
 
 <style>
 	.erro {

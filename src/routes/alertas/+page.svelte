@@ -1,65 +1,25 @@
 <script lang="ts">
-	import { TipoDeObstaculos } from "#lib/types/obstacle-category-type.ts";
-	import { AlertStatus } from "#lib/types/alerta-status.type.ts";
+	import { ObstacleType } from '#lib/types/obstacle-type.ts'
+	import type { PageProps } from './$types'
 
-	type Alert = {
-		title: string
-		description: string
-		category: TipoDeObstaculos
-		neighborhood: string
-		street: string
-		status: AlertStatus
-	}
+	let { data }: PageProps = $props()
+	let alerts = $derived(data.alerts)
 
-	const alerts: Alert[] = [
-		{
-			title: 'Buraco na pista',
-			description: 'Buraco grande perto da faixa de pedestres, dificultando a passagem.',
-			category: TipoDeObstaculos.HOLE,
-			neighborhood: 'Centro',
-			street: "Rua São João de Miriti",
-			status: AlertStatus.STANDBY
-		},
-		{
-			title: 'Poste com lâmpada apagada',
-			description: 'A rua está sem iluminação durante a noite.',
-			category: TipoDeObstaculos.LIGHTINING,
-			neighborhood: 'Itapecirica da Serra',
-			street: "Rua 3",
-			status: AlertStatus.STANDBY
-		},
-		{
-			title: 'Descarte irregular de lixo',
-			description: 'Há sacos de lixo acumulados na calçada.',
-			category: TipoDeObstaculos.GARBAGE,
-			neighborhood: 'Av. Getúlio Vargas',
-			street: "Rua 4",
-			status: AlertStatus.STANDBY
-		},
-		{
-			title: 'Calçada danificada',
-			description: 'Trecho quebrado pode dificultar a passagem de pedestres.',
-			category: TipoDeObstaculos.SIDEWALK,
-			neighborhood: 'Flores Cavalcante',
-			street: "Rua 5",
-			status: AlertStatus.STANDBY
-		}
-	]
-
-	const categories = ['Todas as categorias', ...new Set(alerts.map((alert) => alert.category))]
-
-	let search = $state('')
-	let selectedCategory = $state(categories[0])
-
+	let categories: (ObstacleType | 'Todas')[] = $derived([
+		'Todas',
+		...new Set(alerts.map((alert) => alert.category))
+	])
+	let search: string = $state('')
+	let selectedCategory: ObstacleType | 'Todas' = $derived(categories[0])
 </script>
 
-	<!-- O nome dessa rota esta aberto a debate -->
+<!-- O nome dessa rota esta aberto a debate -->
 <svelte:head>
 	<title>Alertas da comunidade</title>
 	<meta name="description" content="Acompanhe e filtre problemas reportados pela comunidade." />
 </svelte:head>
 
-<main>
+<div class="container">
 	<header>
 		<h1>Alertas da comunidade</h1>
 		<p>Problemas reportados na região</p>
@@ -82,7 +42,7 @@
 		</select>
 
 		<label for="neighborhood">Bairro</label>
-		<input id="neighborhood" type="text">
+		<input id="neighborhood" type="text" />
 	</section>
 
 	<section class="feed">
@@ -90,22 +50,23 @@
 			{#each alerts as alert}
 				<li>
 					<article>
-						<div class="alert-heading">
+						<div class="alert-heading flex-row justify-between">
 							<h3>{alert.title}</h3>
 							<span class="category">{alert.category}</span>
 						</div>
 						<p>{alert.description}</p>
-						<!-- <p class="details">{alert.neighborhood} · {alert.reportedAt}</p> -->
+						<p class="details">{alert.neighborhood} · {alert.created_at}</p>
 					</article>
 				</li>
 			{/each}
 		</ul>
-
 	</section>
-</main>
+
+	<aside>Aqui do lado direito ficaria o mapa</aside>
+</div>
 
 <style>
-	main {
+	.container {
 		max-width: 760px;
 		margin: 0 auto;
 		padding: 2rem 1rem;
@@ -115,6 +76,9 @@
 
 	header {
 		margin-bottom: 1.5rem;
+		p {
+			color: #666;
+		}
 	}
 
 	h1,
@@ -126,10 +90,6 @@
 	h1 {
 		margin-bottom: 0.35rem;
 		font-size: 1.7rem;
-	}
-
-	header p {
-		color: #666;
 	}
 
 	.filters {
@@ -174,9 +134,7 @@
 	}
 
 	.alert-heading {
-		display: flex;
 		align-items: baseline;
-		justify-content: space-between;
 		gap: 1rem;
 	}
 

@@ -1,53 +1,33 @@
 import db from './db.ts'
 import { readFileSync } from "node:fs";
 
+const ObstacleType = {
+    HOLE: 'Buraco',
+    LIGHTINING: 'Iluminação',
+    GARBAGE: 'Lixo',
+    SIDEWALK: 'Calçada'
+}
+const AlertStatus = {
+    STANDBY: 'Em Espera',
+    FIXING: 'Sendo Resolvido',
+    SOLVED: 'Resolvido!'
+}
+
 db.exec('DROP TABLE IF EXISTS alertas')
 
-// Cria a Tabela de Alertas 
 db.exec(`
   CREATE TABLE IF NOT EXISTS alertas (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
     description TEXT NOT NULL,
+	category TEXT NOT NULL,
+	neighborhood TEXT NOT NULL,
+	street TEXT NOT NULL,
+	status TEXT NOT NULL,
     photo BLOB NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )
+  );
 `)
-
-
-	// 	{
-	// 		id: 1,
-	// 		title: 'Buraco na pista',
-	// 		description: 'Buraco grande perto da faixa de pedestres, dificultando a passagem.',
-	// 		category: 'Buraco',
-	// 		neighborhood: 'Centro',
-	// 		reportedAt: 'Hoje, 09:20'
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		title: 'Poste com lâmpada apagada',
-	// 		description: 'A rua está sem iluminação durante a noite.',
-	// 		category: 'Iluminação',
-	// 		neighborhood: 'Vila Nova',
-	// 		reportedAt: 'Hoje, 08:45'
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		title: 'Descarte irregular de lixo',
-	// 		description: 'Há sacos de lixo acumulados na calçada.',
-	// 		category: 'Lixo',
-	// 		neighborhood: 'Centro',
-	// 		reportedAt: 'Ontem, 18:10'
-	// 	},
-	// 	{
-	// 		id: 4,
-	// 		title: 'Calçada danificada',
-	// 		description: 'Trecho quebrado pode dificultar a passagem de pedestres.',
-	// 		category: 'Calçada',
-	// 		neighborhood: 'Jardim das Flores',
-	// 		reportedAt: 'Ontem, 15:30'
-	// 	}
-	// ]
 
 
 if (process.env.NODE_ENV === "development") {
@@ -56,15 +36,31 @@ if (process.env.NODE_ENV === "development") {
     console.log('Database seedada com alguns samples em cada tabela')
 }
 
-
 function _createAlertasTable() {
 	const photo = readFileSync(
-        new URL("../../static/example-image.png", import.meta.url)
+        new URL("../../static/development-photos/example-image.png", import.meta.url)
     )
 
-    const insert = db.prepare('INSERT INTO alertas (title, description, photo) VALUES (?, ?, ?)')
+    const insert = db.prepare(
+		'INSERT INTO alertas (title, description, category, neighborhood, street, status, photo) VALUES (?, ?, ?, ?, ?, ?, ?)'
+	)
 
-    insert.run('Relato1', 'Rua ta esburacada :(.', photo)
-    insert.run('Relato2', 'Alagamento na rua.', photo)
-    insert.run('Relato3', 'Lixo entulhado a 2 anos.', photo)
+	const Descriptions = {
+		ONE: 'Trecho quebrado pode dificultar a passagem de pedestres.',
+		TWO: 'Há sacos de lixo acumulados na calçada.',
+		THREE: 'A rua está sem iluminação durante a noite.',
+		FOUR: 'Buraco grande perto da faixa de pedestres, dificultando a passagem.'
+	}
+
+	console.log("inserindo dados")
+
+    insert.run('Calçada danificada', Descriptions.ONE, ObstacleType.SIDEWALK, 'Santana', 'Rua do Fico', AlertStatus.FIXING, photo)
+	insert.run('Descarte irregular de lixo', Descriptions.TWO, ObstacleType.GARBAGE, 'Ipanema', 'Av. Prestes Maia', AlertStatus.STANDBY, photo)
+	insert.run('Poste com lâmpada apagada', Descriptions.THREE, ObstacleType.LIGHTINING, 'Jardim Sumaré', 'Rua Afonso de Toledo', AlertStatus.FIXING, photo)
+    insert.run('Buraco na pista', Descriptions.FOUR, ObstacleType.HOLE, 'Jardim Guanabara', 'Rua Carlos Pereira da Silva', AlertStatus.FIXING, photo)
+    insert.run('Relato5', Descriptions.ONE, ObstacleType.LIGHTINING, 'Saudade', 'Av. da Saudade', AlertStatus.SOLVED, photo)
+    insert.run('Relato6', Descriptions.ONE, ObstacleType.HOLE, 'Centro', 'Rua General Glicério', AlertStatus.STANDBY, photo)
+    insert.run('Relato7', Descriptions.ONE, ObstacleType.GARBAGE, 'bairro7', 'Rua7', AlertStatus.FIXING, photo)
+
+	console.log("inserção finalizada")
 }
