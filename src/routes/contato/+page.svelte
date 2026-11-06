@@ -305,7 +305,119 @@
 </main>
 
 <style>
+	main {
+		max-width: 560px;
+		margin: 0 auto;
+		padding: 24px 16px;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	header {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	h1 {
+		font-size: 1.5rem;
+	}
+
+	h2 {
+		font-size: 1.15rem;
+		margin-bottom: 12px;
+	}
+
+	/* Formulário: label em cima, input + botão lado a lado */
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+	}
+
+	form > div {
+		display: flex;
+		gap: 8px;
+	}
+
+	form input {
+		flex: 1;
+		min-width: 0;
+		padding: 10px 12px;
+		border: 1px solid #cbd5e1;
+		border-radius: 8px;
+	}
+
+	form button {
+		padding: 10px 16px;
+		border: 0;
+		border-radius: 8px;
+		cursor: pointer;
+	}
+
+	form button:disabled {
+		cursor: not-allowed;
+		opacity: 0.6;
+	}
+
+	/* Cartão do resultado */
+	section {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		padding: 16px;
+		border: 1px solid #e2e8f0;
+		border-radius: 12px;
+	}
+
+	dl {
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	dl > div {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	dt {
+		font-size: 0.75rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		opacity: 0.7;
+	}
+
+	dd {
+		margin: 0;
+		overflow-wrap: anywhere;
+	}
+
+	dd a + a,
+	dd a:last-child:not(:only-child) {
+		margin-left: 8px;
+	}
+
+	ul {
+		margin: 0;
+		padding-left: 20px;
+		columns: 2;
+	}
+
 	.erro {
 		color: crimson;
+	}
+
+	@media (max-width: 520px) {
+		main {
+			padding: 16px 12px;
+		}
+
+		ul {
+			columns: 1;
+		}
 	}
 </style>
