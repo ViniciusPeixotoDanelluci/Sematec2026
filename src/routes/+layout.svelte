@@ -10,7 +10,18 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-{@render children()}
+<div>
+	<header>
+
+	</header>
+	
+	{@render children()}
+</div>
 
 <style>
+	header {
+		/* height: 3rem; */
+		padding: 1.15rem;
+		border-bottom: 2px solid #a2a78c;
+	}
 </style>
