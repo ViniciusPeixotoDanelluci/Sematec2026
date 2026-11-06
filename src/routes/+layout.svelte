@@ -14,7 +14,7 @@
 	<!-- <link rel="icon" href={favicon} /> -->
 </svelte:head>
 
-<div>
+<div class="app flex-col">
 	<header class="flex-row justify-between align-center w-full">
 		<div class="flex-row">
 			<StarCheck />
@@ -35,31 +35,40 @@
 		</nav>
 	</header>
 
-	<main>
+	<main class="flex-row">
 		{@render children()}
 	</main>
 </div>
 
 <style>
-	header {
-		/* height: 3rem; */
-		padding: 1.15rem;
-		border-bottom: 2px solid #a2a78c;
+	.app {
+		height: 100dvh;
+	
+		header {
+			/* height: 3rem; */
+			padding: 1.15rem;
+			border-bottom: 2px solid #a2a78c;
+		}
+
+		h3 {
+			margin: 0;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		span {
+			font-size: small;
+		}
 	}
 
-	h3 {
-		margin: 0;
+	main {
+		min-height: 0;
 	}
 
-	ul {
-		list-style: none;
-	}
-
-	a {
-		text-decoration: none;
-	}
-
-	span {
-		font-size: small;
-	}
 </style>

@@ -1,77 +1,103 @@
 <script lang="ts">
 	import { ObstacleType } from '#lib/types/obstacle-type.ts'
+	import { Map, Layer, View } from 'svelte-openlayers'
+	import { fromLonLat } from 'ol/proj'
+	import type { Alert } from '#lib/types/alert.type.ts'
 	import type { PageProps } from './$types'
+	import 'svelte-openlayers/styles.css'
 
 	let { data }: PageProps = $props()
-	let alerts = $derived(data.alerts)
+	let alerts: Alert[] = $derived(data.alerts)
 
 	let categories: (ObstacleType | 'Todas')[] = $derived([
 		'Todas',
-		...new Set(alerts.map((alert) => alert.category))
+		...new Set(alerts.flatMap((alert) => alert.category))
 	])
+
+	$inspect(alerts)
+
+	let lats_lons: [number, number][] = $derived(
+		alerts.map((alert): [number, number] => [alert.longitude, alert.latitude])
+	)
+
+	let selectedAlert
+
+	let center = $derived(fromLonLat(lats_lons[0]))
+
+	$inspect('mapa', lats_lons)
+
 	let search: string = $state('')
 	let selectedCategory: ObstacleType | 'Todas' = $derived(categories[0])
 </script>
 
-<!-- O nome dessa rota esta aberto a debate -->
 <svelte:head>
 	<title>Alertas da comunidade</title>
 	<meta name="description" content="Acompanhe e filtre problemas reportados pela comunidade." />
 </svelte:head>
 
 <div class="container">
-	<header>
-		<h1>Alertas da comunidade</h1>
-		<p>Problemas reportados na região</p>
-	</header>
+	<div class="feed-container flex-col">
+		<header>
+			<h1>Alertas da comunidade</h1>
+			<p>Problemas reportados na região</p>
+		</header>
 
-	<section class="filters">
-		<label for="search">Buscar alertas</label>
-		<input
-			id="search"
-			type="search"
-			placeholder="Busque por problema ou bairro"
-			bind:value={search}
-		/>
+		<section class="filters">
+			<label for="search">Buscar alertas</label>
+			<input
+				id="search"
+				type="search"
+				placeholder="Busque por problema ou bairro"
+				bind:value={search}
+			/>
 
-		<label for="category">Categoria</label>
-		<select id="category" bind:value={selectedCategory}>
-			{#each categories as category}
-				<option value={category}>{category}</option>
-			{/each}
-		</select>
+			<label for="category">Categoria</label>
+			<select id="category" bind:value={selectedCategory}>
+				{#each categories as category}
+					<option value={category}>{category}</option>
+				{/each}
+			</select>
 
-		<label for="neighborhood">Bairro</label>
-		<input id="neighborhood" type="text" />
+			<label for="neighborhood">Bairro</label>
+			<input id="neighborhood" type="text" />
+		</section>
+
+		<section class="feed">
+			<ul>
+				{#each alerts as alert}
+					<li>
+						<article>
+							<div class="alert-heading flex-row justify-between">
+								<h3>{alert.title}</h3>
+								<span class="category">{alert.category}</span>
+							</div>
+							<p>{alert.description}</p>
+							<p class="details">{alert.neighborhood} · {alert.created_at}</p>
+						</article>
+					</li>
+				{/each}
+			</ul>
+		</section>
+	</div>
+
+	<section class="map-view">
+		<View {center} zoom={20}>
+			<Map>
+				<Layer.Tile source="osm" />
+			</Map>
+		</View>
 	</section>
-
-	<section class="feed">
-		<ul>
-			{#each alerts as alert}
-				<li>
-					<article>
-						<div class="alert-heading flex-row justify-between">
-							<h3>{alert.title}</h3>
-							<span class="category">{alert.category}</span>
-						</div>
-						<p>{alert.description}</p>
-						<p class="details">{alert.neighborhood} · {alert.created_at}</p>
-					</article>
-				</li>
-			{/each}
-		</ul>
-	</section>
-
-	<aside>Aqui do lado direito ficaria o mapa</aside>
 </div>
 
 <style>
 	.container {
-		max-width: 760px;
+		display: grid;
+		min-height: 0;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: 1rem;
 		margin: 0 auto;
-		padding: 2rem 1rem;
+		padding: 1rem 1rem;
 		color: #222;
-		font-family: Arial, sans-serif;
 	}
 
 	header {
@@ -79,6 +105,20 @@
 		p {
 			color: #666;
 		}
+	}
+
+	.feed {
+		overflow-y: scroll;
+	}
+
+	.feed-container,
+	.map-view {
+		min-height: 0;
+		height: 100%;
+	}
+
+	.feed-container {
+		overflow: hidden;
 	}
 
 	h1,
@@ -113,10 +153,6 @@
 		background: white;
 		color: inherit;
 		font: inherit;
-	}
-
-	select {
-		width: 100%;
 	}
 
 	ul {
