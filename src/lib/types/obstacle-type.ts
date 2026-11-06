@@ -1,4 +1,4 @@
-export const enum TipoDeObstaculos {
+export const enum ObstacleType {
     HOLE='Buraco',
     LIGHTINING='Iluminação',
     GARBAGE='Lixo',
