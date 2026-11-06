@@ -5,7 +5,9 @@
 
 	// import logo from '#lib/assets/favicon.svg'
 	import type { LayoutProps } from './$types'
+	import '../app.css'
 	import './common.css'
+
 
 	let { children }: LayoutProps = $props()
 </script>
