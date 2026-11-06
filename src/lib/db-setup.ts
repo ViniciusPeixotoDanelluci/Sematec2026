@@ -44,22 +44,23 @@ function _createAlertasTable() {
     const insert = db.prepare(
 		'INSERT INTO alertas (title, description, category, neighborhood, street, status, photo) VALUES (?, ?, ?, ?, ?, ?, ?)'
 	)
-// RUA:              BAIRRO:
-// rua do fico, santana
-// av. prestes maia, ipanema
-// rua afonso de todelo, jardim sumaré
-// rua carlos pereira da silva, jardim guanabara
-// av. brasilia, jardim nova yorque
-// av. da saudade, saudade
-// rua general glicério, centro
+
+	const Descriptions = {
+		ONE: 'Trecho quebrado pode dificultar a passagem de pedestres.',
+		TWO: 'Há sacos de lixo acumulados na calçada.',
+		THREE: 'A rua está sem iluminação durante a noite.',
+		FOUR: 'Buraco grande perto da faixa de pedestres, dificultando a passagem.'
+	}
+
 	console.log("inserindo dados")
-    insert.run('Relato1', 'Rua ta esburacada :(.', ObstacleType.HOLE, 'bairro1', 'Rua1', AlertStatus.FIXING, photo)
-    insert.run('Relato2', 'Alagamento na rua.', ObstacleType.SIDEWALK, 'bairro2', 'Rua2', AlertStatus.STANDBY, photo)
-    insert.run('Relato3', 'Lixo entulhado a 2 anos.', ObstacleType.GARBAGE, 'bairro3', 'Rua3', AlertStatus.FIXING, photo)
-    insert.run('Relato4', 'Calcaçada cheia de rachadura, ta inandavel!.', ObstacleType.SIDEWALK, 'bairro4', 'Rua4', AlertStatus.FIXING, photo)
-    insert.run('Relato5', 'Os Postes não tão funcionando.', ObstacleType.LIGHTINING, 'bairro5', 'Rua5', AlertStatus.FIXING, photo)
-    insert.run('Relato6', 'Rua Com Buraco aqui.', ObstacleType.HOLE, 'bairro6', 'Rua6', AlertStatus.FIXING, photo)
-    insert.run('Relato7', 'Pilha de lixo não removida.', ObstacleType.GARBAGE, 'bairro7', 'Rua7', AlertStatus.FIXING, photo)
+
+    insert.run('Calçada danificada', Descriptions.ONE, ObstacleType.SIDEWALK, 'Santana', 'Rua do Fico', AlertStatus.FIXING, photo)
+	insert.run('Descarte irregular de lixo', Descriptions.TWO, ObstacleType.GARBAGE, 'Ipanema', 'Av. Prestes Maia', AlertStatus.STANDBY, photo)
+	insert.run('Poste com lâmpada apagada', Descriptions.THREE, ObstacleType.LIGHTINING, 'Jardim Sumaré', 'Rua Afonso de Toledo', AlertStatus.FIXING, photo)
+    insert.run('Buraco na pista', Descriptions.FOUR, ObstacleType.HOLE, 'Jardim Guanabara', 'Rua Carlos Pereira da Silva', AlertStatus.FIXING, photo)
+    insert.run('Relato5', Descriptions.ONE, ObstacleType.LIGHTINING, 'Saudade', 'Av. da Saudade', AlertStatus.SOLVED, photo)
+    insert.run('Relato6', Descriptions.ONE, ObstacleType.HOLE, 'Centro', 'Rua General Glicério', AlertStatus.STANDBY, photo)
+    insert.run('Relato7', Descriptions.ONE, ObstacleType.GARBAGE, 'bairro7', 'Rua7', AlertStatus.FIXING, photo)
 
 	console.log("inserção finalizada")
 }

@@ -1,65 +1,24 @@
 <script lang="ts">
 	import ChevronLeft from '@lucide/svelte/icons/chevron-left'
 	import ChevronRight from '@lucide/svelte/icons/chevron-right'
-	import { TipoDeObstaculos } from '#lib/types/obstacle-category-type.ts'
-	import { AlertStatus } from '#lib/types/alerta-status.type.ts'
+	import type { Alert } from '#lib/types/alert.type.ts';
+    
+	type Props = { alerts: Alert[] }
 
-	type Alert = {
-		title: string
-		description: string
-		category: TipoDeObstaculos
-		neighborhood: string
-		street: string
-		status: AlertStatus
-	}
+    let { alerts }: Props = $props()
 
-	const alerts: Alert[] = [
-		{
-			title: 'Buraco na pista',
-			description: 'Buraco grande perto da faixa de pedestres, dificultando a passagem.',
-			category: TipoDeObstaculos.HOLE,
-			neighborhood: 'Centro',
-			street: 'Rua São João de Miriti',
-			status: AlertStatus.STANDBY
-		},
-		{
-			title: 'Poste com lâmpada apagada',
-			description: 'A rua está sem iluminação durante a noite.',
-			category: TipoDeObstaculos.LIGHTINING,
-			neighborhood: 'Itapecirica da Serra',
-			street: 'Rua 3',
-			status: AlertStatus.STANDBY
-		},
-		{
-			title: 'Descarte irregular de lixo',
-			description: 'Há sacos de lixo acumulados na calçada.',
-			category: TipoDeObstaculos.GARBAGE,
-			neighborhood: 'Av. Getúlio Vargas',
-			street: 'Rua 4',
-			status: AlertStatus.STANDBY
-		},
-		{
-			title: 'Calçada danificada',
-			description: 'Trecho quebrado pode dificultar a passagem de pedestres.',
-			category: TipoDeObstaculos.SIDEWALK,
-			neighborhood: 'Flores Cavalcante',
-			street: 'Rua 5',
-			status: AlertStatus.STANDBY
-		}
-	]
-
+	$inspect(alerts)
+	
 	let track: HTMLUListElement
 	let atStart = $state(true)
 	let atEnd = $state(false)
 
-	//making the arrow follow user's scroll
 	function updateArrows() {
 		if (!track) return
 		atStart = track.scrollLeft <= 1
 		atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1
 	}
 
-	//"sweeping" the carousel
 	function scrollPage(direction: -1 | 1) {
 		track.scrollBy({ left: direction * track.clientWidth, behavior: 'smooth' })
 	}
@@ -70,7 +29,6 @@
 </script>
 
 <section class="flex-row align-center pagination" aria-label="Alertas recentes">
-	<!-- left arrow -->
 	<button
 		type="button"
 		class="arrow"
@@ -81,11 +39,9 @@
 		<ChevronLeft />
 	</button>
 
-	<!-- carousel function -->
 	<ul class="track" bind:this={track} onscroll={updateArrows}>
 		{#each alerts as alert}
 			<li class="card">
-				<!--alert cards-->
 				<article class="flex-col">
 					<div class="flex-row justify-between align-center">
 						<h3>{alert.title}</h3>
@@ -98,7 +54,6 @@
 		{/each}
 	</ul>
 
-	<!--right arrow-->
 	<button
 		type="button"
 		class="arrow"
