@@ -1,8 +1,10 @@
 <script lang="ts">
+  import Hero from './Hero.svelte'
 	import AlertPagination from './AlertPagination.svelte'
 </script>
 
 <div>
-	Feed page
-	<AlertPagination />
+	<Hero/>
+	 
+  <AlertPagination />
 </div>
