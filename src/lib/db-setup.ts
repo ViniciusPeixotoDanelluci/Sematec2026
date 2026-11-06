@@ -44,7 +44,14 @@ function _createAlertasTable() {
     const insert = db.prepare(
 		'INSERT INTO alertas (title, description, category, neighborhood, street, status, photo) VALUES (?, ?, ?, ?, ?, ?, ?)'
 	)
-
+// RUA:              BAIRRO:
+// rua do fico, santana
+// av. prestes maia, ipanema
+// rua afonso de todelo, jardim sumaré
+// rua carlos pereira da silva, jardim guanabara
+// av. brasilia, jardim nova yorque
+// av. da saudade, saudade
+// rua general glicério, centro
 	console.log("inserindo dados")
     insert.run('Relato1', 'Rua ta esburacada :(.', ObstacleType.HOLE, 'bairro1', 'Rua1', AlertStatus.FIXING, photo)
     insert.run('Relato2', 'Alagamento na rua.', ObstacleType.SIDEWALK, 'bairro2', 'Rua2', AlertStatus.STANDBY, photo)
