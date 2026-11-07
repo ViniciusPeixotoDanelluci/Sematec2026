@@ -25,11 +25,18 @@ db.exec(`
 	street TEXT NOT NULL,
 	status TEXT NOT NULL,
     photo BLOB NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    latitude REAL,
+    longitude REAL,
+    CHECK (
+    (latitude IS NULL AND longitude IS NULL) OR
+    (latitude BETWEEN -90 AND 90 AND longitude BETWEEN -180 AND 180)
+    )
   );
 `)
 
-
+// latitude e longitude podem ser adicionados 
+// opcionalmente na hora do cadastro
 if (process.env.NODE_ENV === "development") {
     _createAlertasTable()
 
@@ -37,12 +44,18 @@ if (process.env.NODE_ENV === "development") {
 }
 
 function _createAlertasTable() {
-	const photo = readFileSync(
-        new URL("../../static/development-photos/example-image.png", import.meta.url)
-    )
+	const photos = [
+		'images_3.jpeg',
+		'Imagem-7.jpg',
+		'images_6.jpeg',
+		'images_1.jpeg',
+		// 'images_2.jpeg',
+		// 'images_4.jpeg',
+		// 'images_5.jpeg'
+	].map((filename) => readFileSync(new URL(`../../static/development-photos/${filename}`, import.meta.url)))
 
     const insert = db.prepare(
-		'INSERT INTO alertas (title, description, category, neighborhood, street, status, photo) VALUES (?, ?, ?, ?, ?, ?, ?)'
+	    'INSERT INTO alertas (title, description, category, neighborhood, street, status, photo, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
 	)
 
 	const Descriptions = {
@@ -54,13 +67,13 @@ function _createAlertasTable() {
 
 	console.log("inserindo dados")
 
-    insert.run('Calçada danificada', Descriptions.ONE, ObstacleType.SIDEWALK, 'Santana', 'Rua do Fico', AlertStatus.FIXING, photo)
-	insert.run('Descarte irregular de lixo', Descriptions.TWO, ObstacleType.GARBAGE, 'Ipanema', 'Av. Prestes Maia', AlertStatus.STANDBY, photo)
-	insert.run('Poste com lâmpada apagada', Descriptions.THREE, ObstacleType.LIGHTINING, 'Jardim Sumaré', 'Rua Afonso de Toledo', AlertStatus.FIXING, photo)
-    insert.run('Buraco na pista', Descriptions.FOUR, ObstacleType.HOLE, 'Jardim Guanabara', 'Rua Carlos Pereira da Silva', AlertStatus.FIXING, photo)
-    insert.run('Relato5', Descriptions.ONE, ObstacleType.LIGHTINING, 'Saudade', 'Av. da Saudade', AlertStatus.SOLVED, photo)
-    insert.run('Relato6', Descriptions.ONE, ObstacleType.HOLE, 'Centro', 'Rua General Glicério', AlertStatus.STANDBY, photo)
-    insert.run('Relato7', Descriptions.ONE, ObstacleType.GARBAGE, 'bairro7', 'Rua7', AlertStatus.FIXING, photo)
+    insert.run('Calçada danificada', Descriptions.ONE, ObstacleType.SIDEWALK, 'Santana', 'Rua do Fico', AlertStatus.FIXING, photos[0], -21.195374525398787, -50.439949816310936)
+	insert.run('Descarte irregular de lixo', Descriptions.TWO, ObstacleType.GARBAGE, 'Ipanema', 'Av. Prestes Maia', AlertStatus.STANDBY, photos[1], -21.177036868768784, -50.448138731655476)
+	insert.run('Poste com lâmpada apagada', Descriptions.THREE, ObstacleType.LIGHTINING, 'Jardim Sumaré', 'Rua Afonso de Toledo', AlertStatus.FIXING, photos[2], -21.21209893236994, -50.436812816309654)
+    insert.run('Buraco na pista', Descriptions.FOUR, ObstacleType.HOLE, 'Jardim Guanabara', 'Rua Carlos Pereira da Silva', AlertStatus.FIXING, photos[3], -21.21264203141433, -50.471662318160874)
+    // insert.run('Relato5', Descriptions.ONE, ObstacleType.LIGHTINING, 'Saudade', 'Av. da Saudade', AlertStatus.SOLVED, photos[4], -21.22423906386229, -50.44454417398051)
+    // insert.run('Relato6', Descriptions.ONE, ObstacleType.HOLE, 'Centro', 'Rua General Glicério', AlertStatus.STANDBY, photos[5], -21.206349222637623, -50.43651218932478)
+    // insert.run('Relato7', Descriptions.ONE, ObstacleType.GARBAGE, 'bairro7', 'Rua7', AlertStatus.FIXING, photos[6], -21.206349222637623, -50.43651218932478) // lat-lon temporarios
 
 	console.log("inserção finalizada")
 }
