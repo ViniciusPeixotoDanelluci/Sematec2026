@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/state'
 	import { resolve } from '$app/paths'
-	import type { Path } from '$app/types'
 	import { MapPin } from '@lucide/svelte'
-
 	import type { LayoutProps } from './$types'
+	import type { Path } from '$app/types'
 	import './common.css'
 
 	let { children }: LayoutProps = $props()
@@ -32,12 +31,12 @@
 				<li>
 					<a
 						class="flex-row align-center"
-						class:active={page.url.pathname === resolve('/alertas' as Path)}
-						href={resolve('/alertas' as Path)}>Explorar</a
+						class:active={page.url.pathname === resolve('/relatos' as Path)}
+						href={resolve('/relatos' as Path)}>Feed</a
 					>
 				</li>
 				<li>
-					<a class="flex-row align-center" href={resolve('/' as Path)}>Acompanhar</a>
+					<a class="flex-row align-center" href={resolve('/relatar' as Path)}>Relatar</a>
 				</li>
 				<li>
 					<a

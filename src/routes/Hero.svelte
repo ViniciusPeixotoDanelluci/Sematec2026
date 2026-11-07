@@ -18,13 +18,13 @@
 		</p>
 
 		<div class="actions flex-row align-center">
-			<a href={resolve('/cadastro' as Path)} class="button button-primary flex-row align-center">
+			<a href={resolve('/relatar' as Path)} class="button button-primary flex-row align-center">
 				<Plus size={18} strokeWidth={1.8} />
 				<span>Registrar uma ocorrência</span>
 			</a>
-			<a href={resolve('/alertas' as Path)} class="button button-secondary flex-row align-center">
+			<a href={resolve('/relatos' as Path)} class="button button-secondary flex-row align-center">
 				<Map size={18} strokeWidth={1.8} />
-				<span>Explorar o mapa</span>
+				<span>Ver no mapa</span>
 			</a>
 		</div>
 	</div>

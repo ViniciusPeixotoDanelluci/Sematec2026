@@ -241,6 +241,7 @@
 		gap: 0.25rem;
 		font-weight: 600;
 		white-space: nowrap;
+		
 	}
 
 	.arrow {

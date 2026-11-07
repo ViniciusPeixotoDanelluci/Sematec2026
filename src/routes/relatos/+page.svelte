@@ -7,7 +7,7 @@
 	import 'svelte-openlayers/styles.css'
 
 	let { data }: PageProps = $props()
-	let alerts: Alert[] = $derived(data.alerts)
+	let alerts: Alert[] = $derived(data.alerts ?? [])
 
 	let categories: (ObstacleType | 'Todas')[] = $derived([
 		'Todas',
@@ -22,7 +22,7 @@
 
 	let selectedAlert
 
-	let center = $derived(fromLonLat(lats_lons[0]))
+	let center = $derived(fromLonLat(lats_lons[0] ?? [0, 0]))
 
 	$inspect('mapa', lats_lons)
 
