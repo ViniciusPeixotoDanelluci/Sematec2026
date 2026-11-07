@@ -35,13 +35,7 @@ db.exec(`
   );
 `)
 
-// latitude e longitude podem ser adicionados 
-// opcionalmente na hora do cadastro
-if (process.env.NODE_ENV === "development") {
-    _createAlertasTable()
-
-    console.log('Database seedada com alguns samples em cada tabela')
-}
+_createAlertasTable()
 
 function _createAlertasTable() {
 	const photos = [
@@ -77,3 +71,5 @@ function _createAlertasTable() {
 
 	console.log("inserção finalizada")
 }
+
+console.log('Database seedada com alguns samples em cada tabela')
