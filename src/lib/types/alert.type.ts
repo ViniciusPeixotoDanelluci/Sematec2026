@@ -10,4 +10,6 @@ export type Alert = {
 	street: string
 	status: AlertStatus
 	created_at: string
+	latitude: number
+	longitude: number
 }

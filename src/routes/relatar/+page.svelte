@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { TipoDeObstaculos } from "#lib/types/obstaculos.ts"
-
-
-
+	
     const categorias = Object.values(TipoDeObstaculos);
 
     let titulo = $state('');

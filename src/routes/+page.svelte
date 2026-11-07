@@ -4,12 +4,19 @@
 
 	const { data } = $props()!
 
-	$inspect("uai",data)
-
+	$inspect('uai', data)
 </script>
 
-<div>
+<div class="home-page flex-col">
 	<Hero />
 
-	<AlertPagination alerts={data.alerts}/>
+	<AlertPagination alerts={data.alerts} />
 </div>
+
+<style>
+	.home-page {
+		flex: 1;
+		min-width: 0;
+		min-height: 0;
+	}
+</style>

@@ -8,6 +8,18 @@
 	--azul-claro: #eff4ff;
 	--erro: #dc2626;
 	--raio: 10px;
+	--color-primary: #2161d8;
+	--color-text: #1b3047;
+	--color-muted: #64748b;
+	--color-surface: #ffffff;
+	--color-border: #e5eaf2;
+	--color-hero-background: #edf4ff;
+	--color-status-info-background: #edf4ff;
+	--color-status-info-text: #2161d8;
+	--color-status-working-background: #fff4df;
+	--color-status-working-text: #99600a;
+	--color-status-solved-background: #e8f7ef;
+	--color-status-solved-text: #25804c;
 }
 
 /* ************ */
