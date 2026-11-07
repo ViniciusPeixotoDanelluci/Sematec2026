@@ -4,7 +4,9 @@
 	import { MapPin } from '@lucide/svelte'
 	import type { LayoutProps } from './$types'
 	import type { Path } from '$app/types'
+	import '../app.css'
 	import './common.css'
+
 
 	let { children }: LayoutProps = $props()
 </script>
