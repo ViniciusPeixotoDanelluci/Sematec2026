@@ -2,19 +2,12 @@
 	import { resolve } from '$app/paths'
 	import type { Path } from '$app/types'
 	import { StarCheck } from '@lucide/svelte'
-
-	// import logo from '#lib/assets/favicon.svg'
 	import type { LayoutProps } from './$types'
-	import '../app.css'
 	import './common.css'
 
 
 	let { children }: LayoutProps = $props()
 </script>
-
-<svelte:head>
-	<!-- <link rel="icon" href={favicon} /> -->
-</svelte:head>
 
 <div>
 	<header class="flex-row justify-between align-center w-full">
