@@ -1,4 +1,13 @@
 :root {
+	--bg: #f5f7fb;
+	--card: #ffffff;
+	--borda: #e2e8f0;
+	--texto: #0f172a;
+	--texto-suave: #64748b;
+	--azul: #1d4ed8;
+	--azul-claro: #eff4ff;
+	--erro: #dc2626;
+	--raio: 10px;
 	--color-primary: #2161d8;
 	--color-text: #1b3047;
 	--color-muted: #64748b;

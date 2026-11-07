@@ -78,8 +78,8 @@
 							<p class="street overflow-h">{alert.street} · {alert.neighborhood}</p>
 							<div class="card-footer flex-row justify-between align-center">
 								<time datetime={alert.created_at}>{formatDate(alert.created_at)}</time>
-								<a href={resolve('/alertas' as Path)} class="details-link flex-row align-center">
-									Ver relato <ArrowRight size={15} />
+								<a href={resolve('/relatos' as Path)} class="details-link flex-row align-center">
+									Ver relatos <ArrowRight size={15} />
 								</a>
 							</div>
 						</div>
