@@ -50,9 +50,7 @@
 
 	<div class="carousel flex-row align-center">
 		<button
-			type="button"
 			class="arrow"
-			aria-label="Alertas anteriores"
 			disabled={atStart}
 			onclick={() => scrollPage(-1)}
 		>
@@ -91,9 +89,7 @@
 		</ul>
 
 		<button
-			type="button"
 			class="arrow"
-			aria-label="Próximos alertas"
 			disabled={atEnd}
 			onclick={() => scrollPage(1)}
 		>

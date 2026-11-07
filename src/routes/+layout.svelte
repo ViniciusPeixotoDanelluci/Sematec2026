@@ -9,10 +9,6 @@
 	let { children }: LayoutProps = $props()
 </script>
 
-<svelte:head>
-	<!-- <link rel="icon" href={favicon} /> -->
-</svelte:head>
-
 <div class="app flex-col">
 	<header class="site-header flex-row justify-between align-center">
 		<a class="brand flex-row align-center" href={resolve('/' as Path)}>
