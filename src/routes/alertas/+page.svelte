@@ -13,7 +13,6 @@
 	let selectedCategory: ObstacleType | 'Todas' = $derived(categories[0])
 </script>
 
-<!-- O nome dessa rota esta aberto a debate -->
 <svelte:head>
 	<title>Alertas da comunidade</title>
 	<meta name="description" content="Acompanhe e filtre problemas reportados pela comunidade." />
@@ -71,7 +70,6 @@
 		margin: 0 auto;
 		padding: 2rem 1rem;
 		color: #222;
-		font-family: Arial, sans-serif;
 	}
 
 	header {
