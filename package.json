@@ -5,7 +5,6 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"db:setup": "node src/lib/db-setup.ts",
 		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
@@ -18,7 +17,6 @@
 		"@sveltejs/adapter-auto": "^8.0.0",
 		"@sveltejs/kit": "^3.0.0",
 		"@sveltejs/vite-plugin-svelte": "^7.2.0",
-		"@types/better-sqlite3": "^9.6.0",
 		"prettier": "^3.8.3",
 		"prettier-plugin-svelte": "^4.1.0",
 		"svelte": "^5.57.2",
@@ -32,7 +30,6 @@
 	},
 	"dependencies": {
 		"@lucide/svelte": "^1.70.0",
-		"better-sqlite3": "^13.0.3",
 		"ol": "^10.11.0",
 		"svelte-openlayers": "^2.1.0"
 	}
